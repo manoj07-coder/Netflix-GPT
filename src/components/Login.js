@@ -1,10 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidation } from "../utils/validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleForm = () => {
+    const message = checkValidation(
+      email.current.value,
+      password.current.value
+    );
+    setErrorMessage(message);
+  };
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   const toggleSignInForm = () => {
+    setErrorMessage(null);
     setIsSignInForm(!isSignInForm);
   };
 
@@ -18,7 +41,10 @@ const Login = () => {
           alt=""
         />
       </div>
-      <form className="absolute my-36 mx-auto left-0 right-0 bg-black w-3/12 p-10 text-white opacity-80 rounded-lg">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="absolute my-36 mx-auto left-0 right-0 bg-black w-3/12 p-10 text-white opacity-80 rounded-lg "
+      >
         <h1 className="font-extrabold text-3xl my-4">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
@@ -26,23 +52,29 @@ const Login = () => {
           <input
             type="text"
             placeholder="Full Name"
-            className="p-3 rounded-lg my-4 w-full bg-gray-900 border "
+            className="p-3 rounded-lg my-4 w-full bg-gray-900 border placeholder-white"
           />
         )}
         <input
+          ref={email}
           type="text"
           placeholder="Email address"
-          className="p-3 rounded-lg my-4 w-full bg-gray-900 border "
+          className="p-3 rounded-lg my-4 w-full bg-gray-900 border placeholder-white"
         />
         <input
+          ref={password}
           type="password"
           placeholder="Password"
-          className="p-3 my-4 w-full bg-gray-900 rounded-lg border "
+          className="p-3 my-4 w-full bg-gray-900 rounded-lg border placeholder-white"
         />
-        <button className="rounded-lg bg-red-600 hover:bg-red-800 p-2 my-6 w-full font-bold">
+        <p className="text-red-500 font-bold py-2 ">{errorMessage}</p>
+        <button
+          className="rounded-lg bg-red-700 hover:bg-red-800 p-2 my-6 w-full font-bold"
+          onClick={handleForm}
+        >
           {isSignInForm ? "Sign in" : "Sign Up"}
         </button>
-        <p className="cursor-pointer text-gray-400">
+        <p className=" text-gray-400">
           {isSignInForm ? "New to Netflix?" : "Already registered?"}
           <span
             className="cursor-pointer font-semibold text-white"
