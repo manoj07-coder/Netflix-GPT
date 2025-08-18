@@ -44,25 +44,23 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="flex justify-between">
-      <div className="">
-        <img
-          className="absolute z-50 mx-20 my-6 w-44 "
-          src={LOGO_URL}
-          alt="logo"
-        />
+    <div className="absolute top-0 left-0 w-full z-50 flex justify-between items-center">
+      <div>
+        <img className="mx-20 my-6 w-44" src={LOGO_URL} alt="logo" />
       </div>
-      {user && (
-        <div className="flex p-8">
-          <img className="w-12 mx-4" src={user.photoURL} alt="Profile" />
-          <button
-            className="bg-[#E50914] text-white p-2 rounded-lg font-bold"
-            onClick={handleSignOut}
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
+      <div>
+        {user && (
+          <div className="flex p-8">
+            <img className="w-12 mx-4" src={user.photoURL} alt="Profile" />
+            <button
+              className="bg-[#E50914] text-white p-2 rounded-lg font-bold"
+              onClick={handleSignOut}
+            >
+              Sign Out
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
