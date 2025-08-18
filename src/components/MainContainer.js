@@ -7,7 +7,7 @@ const MainContainer = () => {
 
   if (!movies) return;
 
-  const { original_title, overview, id } = movies[10];
+  const { original_title, overview, id } = movies[19];
 
   return (
     <div>
