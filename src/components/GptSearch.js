@@ -1,4 +1,3 @@
-import React from "react";
 import { BG_URL } from "../utils/constants";
 import SearchBar from "./SearchBar";
 
