@@ -9,7 +9,6 @@ const VideoBackground = ({ movieId }) => {
   if (!videoData) return;
 
   const { key } = videoData;
-  console.log(key);
 
   return (
     <div className="w-screen aspect-video">
